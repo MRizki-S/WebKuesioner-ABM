@@ -36,21 +36,43 @@
                 <!-- Title Login -->
                 <h2 class="text-2xl font-bold text-center text-purple-700 mb-6">Login</h2>
 
+
+                @if (Session::has('error'))
+                    <div class="bg-red-100 border-red-500 text-red-500 p-3 rounded mb-4">
+                        {{ Session::get('error') }}
+                    </div>
+                @endif
+
+
                 <form class="space-y-5" action="{{ route('login.action') }}" method="POST">
                     @csrf
 
                     <div>
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-700">Username</label>
-                        <input type="text" id="username" name="username"
-                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5"
-                            placeholder="user1" required />
+                        <input type="text" id="username" name="username" value="{{ old('username') }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 @error('username') border-red-500 @enderror"
+                            placeholder="user1" />
+
+                        @error('username')
+                            <p class="text-sm text-red-600 p-2 rounded-lg">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
+
                     <div>
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
                         <input type="password" id="password" name="password"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5"
-                            required placeholder="******"/>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 @error('password') border-red-500 @enderror"
+                            required placeholder="******" />
+
+                        @error('password')
+                            <p class="mt-2 text-sm text-red-600 bg-red-50 border border-red-300 p-2 rounded-lg">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
+
                     <div>
                         <button type="submit"
                             class="w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
@@ -61,6 +83,7 @@
             </div>
         </div>
     </div>
+
 
 
     <!-- Flowbite JS -->
