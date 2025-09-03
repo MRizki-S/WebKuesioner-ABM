@@ -21,7 +21,7 @@ Route::get('/survey/{slug}', [SurveyController::class, 'show'])->name('survey.sh
 Route::post('/survey/{slug}', [SurveyController::class, 'submit'])->name('survey.submit');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/',[DashboardController::class, 'index']);
+    Route::get('/', [DashboardController::class, 'index']);
 
     Route::resource('/survei', CategorySurveyController::class);
 
@@ -33,4 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/hasil-survei/{slug}', [HasilSurveiController::class, 'show'])->name('hasil-survei.show');
     Route::get('/hasil-survei/{slug}/responses/{id}', [HasilSurveiController::class, 'responses'])->name('hasil-survei.response.show');
 
+    // export hasil survey
+    Route::get('/hasil-survei/{slug}/export-rekap', [HasilSurveiController::class, 'exportRekap'])
+        ->name('hasil-survei.export-rekap');
 });
